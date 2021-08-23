@@ -5,7 +5,8 @@ let lockBoard = false;
 let firstCard, secondCard;
 
 function flipCard() {
-  if (lockBoard) return;
+  if (lockBoard == true) return;
+  if (this === firstCard) return;
 
   //this.classList.toggle("flip");
   this.classList.toggle("flip");
@@ -14,16 +15,16 @@ function flipCard() {
     // first click -> first card
     cardsIsFlipped = true;
     firstCard = this;
-  } else {
-    //second click -> second card
-    cardsIsFlipped = false;
-    secondCard = this;
-
-    checkForMatch();
-    // checking whether the cards match
-    // console.log(firstCard.dataset.name);
-    //console.log(secondCard.dataset.name);
+    return;
   }
+  //second click -> second card
+  cardsIsFlipped = false;
+  secondCard = this;
+
+  checkForMatch();
+  // checking whether the cards match
+  // console.log(firstCard.dataset.name);
+  //console.log(secondCard.dataset.name);
 }
 
 function checkForMatch() {
@@ -48,8 +49,13 @@ function unflipCards() {
   setTimeout(() => {
     firstCard.classList.remove("flip");
     secondCard.classList.remove("flip");
-    lockBoard = false;
+    resetBoard();
   }, 1500);
+}
+
+function resetBoard() {
+  [cardIsFlipped, lockBoard] = [false, false];
+  [firstCard, secondCard] = [null, null];
 }
 
 cards.forEach(function (card) {
