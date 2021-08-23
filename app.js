@@ -14,21 +14,36 @@ function flipCard() {
     //second click -> second card
     cardsIsFlipped = false;
     secondCard = this;
+
+    checkForMatch();
     // checking whether the cards match
     // console.log(firstCard.dataset.name);
     //console.log(secondCard.dataset.name);
-    if (firstCard.dataset.name === secondCard.dataset.name) {
-      // it it a match -> disable the cards
-      firstCard.removeEventListener("click", flipCard);
-      secondCard.removeEventListener("click", flipCard);
-    } else {
-      //not a match -> unflip the card
-      setTimeout(() => {
-        firstCard.classList.remove("flip");
-        secondCard.classList.remove("flip");
-      }, 1500);
-    }
   }
+}
+
+function checkForMatch() {
+  let isMatched = firstCard.dataset.name === secondCard.dataset.name;
+  isMatched ? disableCards() : unflipCards();
+  /* if (firstCard.dataset.name === secondCard.dataset.name) {
+    disableCards();
+    // it it a match -> disable the cards
+  } else {
+    //not a match -> unflip the card
+    unflipCards();
+  } */
+}
+
+function disableCards() {
+  firstCard.removeEventListener("click", flipCard);
+  secondCard.removeEventListener("click", flipCard);
+}
+
+function unflipCards() {
+  setTimeout(() => {
+    firstCard.classList.remove("flip");
+    secondCard.classList.remove("flip");
+  }, 1500);
 }
 
 cards.forEach(function (card) {
