@@ -58,6 +58,14 @@ function resetBoard() {
   [firstCard, secondCard] = [null, null];
 }
 
+//IIFE -> Immediately Invoked function expression ->function is called after its definition
+(function shuffle() {
+  cards.forEach(function (card) {
+    let randomPositions = Math.floor(Math.random() * 12);
+    card.style.order = randomPositions;
+  });
+})();
+
 cards.forEach(function (card) {
   card.addEventListener("click", flipCard);
 });
